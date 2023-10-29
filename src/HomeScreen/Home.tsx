@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Dispatch, SetStateAction } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Pokemon } from "../Configuration/types";
 import { capitalizeFirstLetter, sortByHandler } from "../Utilities/utilities";
@@ -10,7 +10,7 @@ import classes from "./Home.module.css";
 const Home: React.FC = () => {
 
     const [pokemon, setPokemon] = useState<Pokemon[]>([]);
-    const [sortOrder, setSortOrder] = useState<"NAME" | "ID">("NAME");
+    const [sortOrder, setSortOrder] = useState<"NAME" | "ID">("ID");
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [totalPokemon, setTotalPokemon] = useState<number>(0);
 
@@ -32,18 +32,37 @@ const Home: React.FC = () => {
 
 
     const loadMore = async () => {
-        const offset = currentPage * itemsPerPage;
-        const limit = itemsPerPage;
+        // const offset = currentPage * itemsPerPage;
+        // const limit = itemsPerPage;
 
-        await fetchPokemonDataRange(setPokemon, setTotalPokemon, limit, offset);
+        // await fetchPokemonDataRange(setPokemon, setTotalPokemon, limit, offset);
         setCurrentPage((prevPage) => prevPage + 1);
+      };
+
+      const loadAllPokemonData = async (setPokemon: Dispatch<SetStateAction<Pokemon[]>>, setTotalPokemon: Dispatch<SetStateAction<number>>) => {
+        const batchSize = 100; // Adjust the batch size as needed
+        const totalPokemonCount = 1200; // Total number of Pokémon
+      
+        let offset = 0;
+      
+        while (offset < totalPokemonCount) {
+          // Fetch a batch of Pokémon data
+          const limit = Math.min(batchSize, totalPokemonCount - offset);
+          await fetchPokemonDataRange(setPokemon, setTotalPokemon, limit, offset);
+      
+          // Update the offset for the next batch
+          offset += batchSize;
+      
+          // Add a delay (e.g., 1 second) between batches to avoid blocking the main thread
+          await new Promise((resolve) => setTimeout(resolve, 1));
+        }
       };
    
 
     useEffect(() => {
-        fetchPokemonDataRange(setPokemon, setTotalPokemon, initialLimit, initialOffset);
-        setSortOrder("ID");
+        loadAllPokemonData(setPokemon, setTotalPokemon);
     }, []);
+
 
 
     return (
