@@ -3,22 +3,25 @@ import { Pokemon } from "../Configuration/types";
 import { FETCH_POKEMON } from "../Configuration/constants";
 
 
-export const fetchPokemonDataRange = async (setPokemon: Dispatch<SetStateAction<Pokemon[]>>, limit: number, offset: number): Promise<void> => {
+export const fetchPokemonDataRange = async (
+  setPokemon: Dispatch<SetStateAction<Pokemon[]>>, 
+  setTotalPokemon: Dispatch<SetStateAction<number>>,
+  limit: number, 
+  offset: number): Promise<void> => {
   try {
-    console.log("in fetch")
+
     const url: string = `${FETCH_POKEMON}?limit=${limit}&offset=${offset}`;
     const response: Response = await fetch(url);
-    
+   
 
     if (!response.ok) {
       console.error("Error fetching Pokémon data");
       return;
     }
 
-    const data: { results: { name: string; url: string; }[] } = await response.json();
-    
+    const data: {count: number, results: { name: string; url: string; }[] } = await response.json();
     const results: { name: string; url: string; }[] = data.results;
-  
+    setTotalPokemon(data.count);
     
     const chunkPokemonData: Pokemon[] = await Promise.all(
       results.map(async (result) => {

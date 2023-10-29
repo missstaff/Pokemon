@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { AutoSizer, ListRowRenderer } from "react-virtualized";
 import { Pokemon } from "../Configuration/types";
 import { capitalizeFirstLetter, sortByHandler } from "../Utilities/utilities";
 import placeholderImage from '../assets/placeholder_image.webp';
 import { fetchPokemonDataRange } from "../Utilities/utilities"
-
 import classes from "./Home.module.css";
 
 
@@ -13,7 +11,8 @@ const Home: React.FC = () => {
 
     const [pokemon, setPokemon] = useState<Pokemon[]>([]);
     const [sortOrder, setSortOrder] = useState<"NAME" | "ID">("NAME");
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [totalPokemon, setTotalPokemon] = useState<number>(0);
 
     const itemsPerPage: number = 12;
     const initialOffset: number = 0;
@@ -21,7 +20,7 @@ const Home: React.FC = () => {
 
     const startIndex: number = (currentPage - 1) * itemsPerPage;
     const endIndex: number = startIndex + itemsPerPage;
-    const sortedPokemon: Pokemon[] = [...pokemon].sort((a, b) => {
+    const sortedPokemon: Pokemon[] = [...pokemon].sort((a: any, b: any) => {
         if (sortOrder === "NAME") {
             return a.name.localeCompare(b.name);
         } else {
@@ -31,21 +30,18 @@ const Home: React.FC = () => {
 
     const itemsToDisplay: Pokemon[] = sortedPokemon.slice(startIndex, endIndex);
 
-    const loadMore = async () => {
 
+    const loadMore = async () => {
         const offset = currentPage * itemsPerPage;
         const limit = itemsPerPage;
-console.log("OFFSET", offset)
-console.log("pokemon.lenght", pokemon.length)
-console.log("Math.ceil((pokemon.length / 12))", Math.ceil((pokemon.length / 12)))
 
-        await fetchPokemonDataRange(setPokemon, limit, offset);
-
+        await fetchPokemonDataRange(setPokemon, setTotalPokemon, limit, offset);
         setCurrentPage((prevPage) => prevPage + 1);
       };
    
+
     useEffect(() => {
-        fetchPokemonDataRange(setPokemon, initialLimit, initialOffset);
+        fetchPokemonDataRange(setPokemon, setTotalPokemon, initialLimit, initialOffset);
         setSortOrder("ID");
     }, []);
 
@@ -126,10 +122,10 @@ console.log("Math.ceil((pokemon.length / 12))", Math.ceil((pokemon.length / 12))
                         ) : (
                             <div></div>
                         )}
-                        {currentPage <= Math.ceil((pokemon.length / 12))-1 ? (
+                        {(Math.ceil(totalPokemon/itemsPerPage)-currentPage) > 0? (
                             <div onClick={() => {loadMore()}}
                                 className={classes.btnPagination}>
-                                <p>Next {Math.ceil(pokemon.length / itemsPerPage) - currentPage}</p>
+                                <p>Next {(Math.ceil(totalPokemon/itemsPerPage)-currentPage) < 1 ? "" :(Math.ceil((totalPokemon-1)/itemsPerPage)-currentPage)}</p>
                             </div>
                         ) : (
                             <div></div>
