@@ -126,10 +126,10 @@ console.log("Math.ceil((pokemon.length / 12))", Math.ceil((pokemon.length / 12))
                         ) : (
                             <div></div>
                         )}
-                        {currentPage <= Math.ceil((pokemon.length / 12)) ? (
+                        {currentPage <= Math.ceil((pokemon.length / 12))-1 ? (
                             <div onClick={() => {loadMore()}}
                                 className={classes.btnPagination}>
-                                <p>Next {currentPage <= Math.ceil((pokemon.length / 12)) ? Math.ceil((pokemon.length / 12)) : " "}</p>
+                                <p>Next {Math.ceil(pokemon.length / itemsPerPage) - currentPage}</p>
                             </div>
                         ) : (
                             <div></div>
