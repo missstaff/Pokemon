@@ -85,7 +85,7 @@ const Home: React.FC = () => {
                                 type="radio"
                                 value="NAME"
                             />
-                            <p style={{ paddingLeft: 10 }}>Sort Name</p>
+                            <p>Sort Name</p>
                         </div>
                         <div className={classes.sortOption}>
                             <input
@@ -95,7 +95,7 @@ const Home: React.FC = () => {
                                 type="radio"
                                 value="ID"
                             />
-                            <p style={{ paddingLeft: 10 }}>Sort ID</p>
+                            <p>Sort ID</p>
                         </div>
                     </div>
                 </div>
@@ -130,9 +130,9 @@ const Home: React.FC = () => {
                         }}
                         renderElse={() => {
                             return (
-                               <div className={classes.errorMessage}>
-                                 <p>Catching them all...</p>
-                               </div>
+                                <div className={classes.errorMessage}>
+                                    <p>Catching them all...</p>
+                                </div>
                             );
                         }} />
                 </div>

@@ -126,6 +126,10 @@
     justify-content: center;
 }
 
+.sortOption>p{
+    padding-left: 0.5rem;
+}
+
 .wrapper {
     align-items: normal;
     background-color: rgba(246, 246, 247, 1);
