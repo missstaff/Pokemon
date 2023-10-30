@@ -130,11 +130,13 @@ const Home: React.FC = () => {
                         }}
                         renderElse={() => {
                             return (
-                                <p>Catching them all...</p>
+                               <div className={classes.errorMessage}>
+                                 <p>Catching them all...</p>
+                               </div>
                             );
                         }} />
                 </div>
-                
+
                 <footer>
                     <div className={classes.btnContainerPagination}>
                         <ShowIf
