@@ -1,9 +1,8 @@
 import React from "react";
-import Home from "./HomeScreen/Home";
+import Home from "./Screens/Home";
 
 
 function App() {
-
   return (
     <Home />
   );

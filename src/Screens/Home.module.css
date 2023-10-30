@@ -3,9 +3,9 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 100%;
     margin-bottom: 2.4rem;
-
+    transition: all 3s ease;
+    width: 100%;
 }
 
 .btnPagination {
@@ -47,19 +47,13 @@
     margin: 0 5rem;
 }
 
-.footer {
-    max-height:25rem;
-    padding-top: 19.2rem;
-}
-
 .grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: auto;
-    grid-auto-flow: dense;
     column-gap: 0.75rem;
+    grid-auto-flow: dense;
+    grid-auto-rows: auto;
+    grid-template-columns: repeat(4, 1fr);
     row-gap: 0.75rem;
-    max-height: calc(3 * (auto + 0.75rem));
 }
 
 .gridItemContainer {
@@ -81,8 +75,8 @@
 }
 
 .headingContainer>h3 {
-    font-weight: 500;
     font-size: 2rem;
+    font-weight: 500;
 }
 
 .itemContainer {
@@ -94,15 +88,15 @@
     transition: all 3s ease-in;
 }
 
-.itemContainer>p{
+.itemContainer>p {
+    line-height: 1.2;
     padding-left: 1rem;
-    line-height: 1.2; 
 }
 
 .itemImageContainer {
     align-items: center;
-    border-radius: 50%;
     background-color: rgba(227, 225, 229);
+    border-radius: 50%;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -110,10 +104,10 @@
 
 .itemImage {
     border-radius: 50%;
-    object-fit: contain;
     image-rendering: optimizeQuality;
     image-resolution: from-image;
     height: 3.6rem;
+    object-fit: contain;
     resize: both;
     width: fit-content;
 }
@@ -126,16 +120,24 @@
 }
 
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items:normal;
-    justify-content: space-between;
+    align-items: normal;
     background-color: rgba(246, 246, 247, 1);
     border: solid;
     border-color: rgba(246, 246, 247, 1);
     border-width: 2px;
-    height: 100%;
-    max-width: 80rem;
+    display: flex;
+    flex-direction: column;
+    height: 47rem;
+    justify-content: space-between;
     margin: 4.4rem auto;
+    max-width: 80rem;
+}
 
+footer {
+    max-height: 25rem;
+    padding-top: 19.2rem;
+}
+
+input {
+    cursor: pointer;
 }
