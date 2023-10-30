@@ -43,7 +43,8 @@ const Home: React.FC = () => {
 
     const loadAllPokemonData = async (
         setPokemon: Dispatch<SetStateAction<Pokemon[]>>,
-        setTotalPokemon: Dispatch<SetStateAction<number>>): Promise<void> => {
+        setTotalPokemon: Dispatch<SetStateAction<number>>
+    ): Promise<void> => {
 
         const batchSize: number = 100;
         const totalPokemonCount: number = await fetchTotalPokemonCount();
@@ -68,7 +69,6 @@ const Home: React.FC = () => {
             clearTimeout(timer);
         }
     }, []);
-
 
 
     return (
@@ -134,7 +134,8 @@ const Home: React.FC = () => {
                                     <p>Catching them all...</p>
                                 </div>
                             );
-                        }} />
+                        }}
+                    />
                 </div>
 
                 <footer>
@@ -154,7 +155,8 @@ const Home: React.FC = () => {
                                 return (
                                     <div></div>
                                 );
-                            }} />
+                            }}
+                        />
                         <ShowIf
                             condition={!loading && (Math.ceil(totalPokemon / itemsPerPage) - currentPage) > 0}
                             render={() => {
@@ -170,7 +172,8 @@ const Home: React.FC = () => {
                                 return (
                                     <div></div>
                                 );
-                            }} />
+                            }}
+                        />
                     </div>
                 </footer>
             </main>

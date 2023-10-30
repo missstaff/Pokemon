@@ -68,16 +68,16 @@ export const fetchPokemonDataRange = async (
  * @returns number
  */
 export const fetchTotalPokemonCount = async (): Promise<number> => {
-  try{
+  try {
     const response: Response = await fetch(`${FETCH_POKEMON}?limit=1`);
-  if (!response.ok) {
-    console.error("Error fetching total Pokémon count");
-    return 0;
-  }
-  const data: { count: number } = await response.json();
-  return data.count;
-  }catch(error: any){
-    console.error(`Error fetching Pokémon count: ${error} ${error.code}`);
+    if (!response.ok) {
+      console.error("Error fetching total Pokémon count");
+      return 0;
+    }
+    const data: { count: number } = await response.json();
+    return data.count;
+  } catch (error: any) {
+    console.error(`Error fetching Pokémon count in utilities.tsx at fetchTotalPokemonCount: ${error} ${error.code}`);
     return 0;
   }
 };
